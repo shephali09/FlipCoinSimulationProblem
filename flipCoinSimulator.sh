@@ -1,9 +1,9 @@
-num_flips=20
+target_wins=21
 
 heads=0
 tails=0
 
-for (( i=1; i<=$num_flips; i++ ))
+while [ $heads -lt $target_wins ] && [ $tails -lt $target_wins ]
 do
   result=$((RANDOM % 2))
   if [ $result -eq 0 ]
@@ -14,7 +14,13 @@ do
   fi
 done
 
-echo "Results after $num_flips flips:"
-echo "Heads: $heads"
-echo "Tails: $tails"
-
+echo "Results after $((heads+tails)) flips:"
+if [ $heads -gt $tails ]
+then
+  echo "Heads wins by $((heads-tails))"
+elif [ $tails -gt $heads ]
+then
+  echo "Tails wins by $((tails-heads))"
+else
+  echo "It's a tie!"
+fi
